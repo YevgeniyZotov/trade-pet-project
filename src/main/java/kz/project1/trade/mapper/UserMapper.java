@@ -4,7 +4,9 @@ import kz.project1.trade.dto.CreateUserRequest;
 import kz.project1.trade.dto.UserDto;
 import kz.project1.trade.model.User;
 import kz.project1.trade.model.enums.UserStatus;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserMapper {
     public static UserDto toDto(User user) {
         UserDto dto = new UserDto();
