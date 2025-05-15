@@ -12,4 +12,5 @@ public interface UserService {
     UserDto banUser(Long id);
     UserDto unbanUser(Long id);
     UserDto restoreUser(Long id);
+    UserDto getUserById(Long id);
 }
