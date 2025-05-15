@@ -32,6 +32,11 @@ public class UserController {
         return userService.deleteUser(id);
     }
 
+    @GetMapping("/{id}")
+    public UserDto getUserById(@PathVariable Long id) {
+        return userService.getUserById(id);
+    }
+
     @PostMapping("/{id}/ban")
     public UserDto banUser(@PathVariable Long id) {
         return userService.banUser(id);
