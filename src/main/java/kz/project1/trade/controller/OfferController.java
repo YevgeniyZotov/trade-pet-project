@@ -2,7 +2,6 @@ package kz.project1.trade.controller;
 
 import kz.project1.trade.dto.CreateOfferRequest;
 import kz.project1.trade.dto.OfferDto;
-import kz.project1.trade.mapper.OfferMapper;
 import kz.project1.trade.service.OfferService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -22,14 +21,12 @@ public class OfferController {
 
     @GetMapping
     public List<OfferDto> getAllOffers() {
-        return offerService.getAllOffers().stream()
-                .map(OfferMapper::toDto)
-                .toList();
+        return offerService.getAllOffers();
     }
 
     @PostMapping("/{id}/archive")
     public OfferDto archiveOffer(@PathVariable Long id) {
-        return offerService.getOfferById(id);
+        return offerService.archiveOffer(id);
     }
 
     @GetMapping("/{id}")

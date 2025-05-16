@@ -4,6 +4,7 @@ import kz.project1.trade.dto.RegisterRequest;
 import kz.project1.trade.dto.UserDto;
 import kz.project1.trade.exception.RegisterEmailExistsException;
 import kz.project1.trade.exception.RegisterPasswordMismatchException;
+import kz.project1.trade.exception.RegisterUsernameExistsException;
 import kz.project1.trade.mapper.UserMapper;
 import kz.project1.trade.model.User;
 import kz.project1.trade.model.enums.UserStatus;
@@ -25,6 +26,10 @@ public class AuthServiceImpl implements AuthService {
 
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new RegisterEmailExistsException("Пользователь с таким email уже существует");
+        }
+
+        if (userRepository.existsByUsername(request.getUsername())) {
+            throw new RegisterUsernameExistsException("Пользователь с таким username уже существует");
         }
 
         User user = new User();

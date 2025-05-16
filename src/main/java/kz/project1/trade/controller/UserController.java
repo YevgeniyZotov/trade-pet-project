@@ -17,11 +17,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping
-    public UserDto createUser(@RequestBody CreateUserRequest request) {
-        return userService.createUser(request);
-    }
-
     @GetMapping
     public List<UserDto> getAllUsers() {
         return userService.getAllUsers();
