@@ -51,4 +51,11 @@ public class OfferServiceImpl implements OfferService {
         offer.setStatus(OfferStatus.ARCHIVED);
         return OfferMapper.toDto(offerRepository.save(offer));
     }
+
+    @Override
+    public List<OfferDto> getActiveOffers() {
+        return offerRepository.findAllByStatus(OfferStatus.ACTIVE).stream()
+                .map(OfferMapper::toDto)
+                .toList();
+    }
 }
