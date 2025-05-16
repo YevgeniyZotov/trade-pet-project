@@ -8,23 +8,24 @@ import kz.project1.trade.model.enums.OfferStatus;
 
 public class OfferMapper {
     public static OfferDto toDto(Offer offer) {
-        OfferDto dto = new OfferDto();
-        dto.setId(offer.getId());
-        dto.setTitle(offer.getTitle());
-        dto.setDescription(offer.getDescription());
-        dto.setPrice(offer.getPrice());
-        dto.setStatus(offer.getStatus());
-        dto.setOwner(UserMapper.toDto(offer.getUser()));
-        return dto;
+        return OfferDto.builder()
+                .id(offer.getId())
+                .title(offer.getTitle())
+                .description(offer.getDescription())
+                .price(offer.getPrice())
+                .status(offer.getStatus())
+                .owner(UserMapper.toDto(offer.getUser()))
+                .createdAt(offer.getCreatedAt())
+                .build();
     }
 
     public static Offer fromCreateRequest(CreateOfferRequest request, User user) {
-        Offer offer = new Offer();
-        offer.setTitle(request.getTitle());
-        offer.setDescription(request.getDescription());
-        offer.setPrice(request.getPrice());
-        offer.setUser(user);
-        offer.setStatus(OfferStatus.ACTIVE);
-        return offer;
+        return Offer.builder()
+                .title(request.getTitle())
+                .description(request.getDescription())
+                .price(request.getPrice())
+                .status(OfferStatus.ACTIVE)
+                .user(user)
+                .build();
     }
 }

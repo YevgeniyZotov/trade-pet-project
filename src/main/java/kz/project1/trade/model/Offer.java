@@ -2,11 +2,20 @@ package kz.project1.trade.model;
 
 import jakarta.persistence.*;
 import kz.project1.trade.model.enums.OfferStatus;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "offers")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Offer {
 
     @Id
@@ -24,4 +33,8 @@ public class Offer {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @Column(name = "created_at", updatable = false)
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 }

@@ -1,6 +1,5 @@
 package kz.project1.trade.service;
 
-import kz.project1.trade.dto.CreateUserRequest;
 import kz.project1.trade.dto.UserDto;
 import kz.project1.trade.exception.UserIdNotFoundException;
 import kz.project1.trade.exception.UserStatusException;
