@@ -22,12 +22,6 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserDto createUser(CreateUserRequest request) {
-        User user = UserMapper.fromCreateRequest(request);
-        return UserMapper.toDto(userRepository.save(user));
-    }
-
-    @Override
     public List<UserDto> getAllUsers() {
         return userRepository.findAllByStatus(UserStatus.ACTIVE).stream()
                 .map(UserMapper::toDto)

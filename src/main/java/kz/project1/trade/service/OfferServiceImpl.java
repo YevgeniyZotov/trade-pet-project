@@ -21,8 +21,10 @@ public class OfferServiceImpl implements OfferService {
     private final UserRepository userRepository;
 
     @Override
-    public List<Offer> getAllOffers() {
-        return offerRepository.findAllByStatus(OfferStatus.ACTIVE);
+    public List<OfferDto> getAllOffers() {
+        return offerRepository.findAll().stream()
+                .map(OfferMapper::toDto)
+                .toList();
     }
 
     @Override
