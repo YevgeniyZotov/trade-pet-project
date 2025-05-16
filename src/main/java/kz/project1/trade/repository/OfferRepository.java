@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface OfferRepository extends JpaRepository<Offer, Long> {
     List<Offer> findAllByStatus(OfferStatus active);
+    List<Offer> findAllByUserId(Long userId);
 }

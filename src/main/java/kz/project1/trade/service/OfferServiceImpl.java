@@ -58,4 +58,11 @@ public class OfferServiceImpl implements OfferService {
                 .map(OfferMapper::toDto)
                 .toList();
     }
+
+    @Override
+    public List<OfferDto> getOffersByUserId(Long userId) {
+        return offerRepository.findAllByUserId(userId).stream()
+                .map(OfferMapper :: toDto)
+                .toList();
+    }
 }
