@@ -10,4 +10,6 @@ public interface OfferService {
     OfferDto getOfferById(Long id);
     OfferDto createOffer(CreateOfferRequest request);
     OfferDto archiveOffer(Long id);
+    List<OfferDto> getActiveOffers();
+    List<OfferDto> getOffersByUserId(Long userId);
 }

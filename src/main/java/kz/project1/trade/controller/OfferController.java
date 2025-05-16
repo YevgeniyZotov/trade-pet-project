@@ -33,4 +33,14 @@ public class OfferController {
     public OfferDto getOfferById(@PathVariable Long id) {
         return offerService.getOfferById(id);
     }
+
+    @GetMapping("/active")
+    public List<OfferDto> getActiveOffers() {
+        return offerService.getActiveOffers();
+    }
+
+    @GetMapping("/user/{id}")
+    public List<OfferDto> getOffersByUserId(@PathVariable Long id) {
+        return offerService.getOffersByUserId(id);
+    }
 }
