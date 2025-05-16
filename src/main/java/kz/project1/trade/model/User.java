@@ -2,10 +2,16 @@ package kz.project1.trade.model;
 
 import jakarta.persistence.*;
 import kz.project1.trade.model.enums.UserStatus;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "users")
 public class User {
     @Id
