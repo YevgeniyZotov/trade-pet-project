@@ -19,4 +19,5 @@ public class OfferDto {
     private LocalDateTime createdAt;
     private OfferStatus status;
     private UserDto owner;
+    private ItemDto item;
 }
