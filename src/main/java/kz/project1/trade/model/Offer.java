@@ -37,4 +37,8 @@ public class Offer {
     @Column(name = "created_at", updatable = false)
     @CreationTimestamp
     private LocalDateTime createdAt;
+
+    @OneToOne
+    @JoinColumn(name = "item_id")
+    private Item item;
 }

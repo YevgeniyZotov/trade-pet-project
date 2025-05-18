@@ -1,5 +1,6 @@
 package kz.project1.trade.controller;
 
+import io.swagger.v3.oas.annotations.Parameter;
 import kz.project1.trade.dto.CreateOfferRequest;
 import kz.project1.trade.dto.OfferDto;
 import kz.project1.trade.service.OfferService;
@@ -20,8 +21,8 @@ public class OfferController {
     }
 
     @GetMapping
-    public List<OfferDto> getAllOffers() {
-        return offerService.getAllOffers();
+    public List<OfferDto> getAllOffers(@Parameter(description = "Тип предмета: KNIFE, RIFLE, PISTOL и т.д.") @RequestParam(required = false) String type) {
+        return offerService.getOffersByItemType(type);
     }
 
     @PostMapping("/{id}/archive")
