@@ -13,8 +13,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class OfferDto {
     private Long id;
-    private String title;
-    private String description;
     private Double price;
     private LocalDateTime createdAt;
     private OfferStatus status;
