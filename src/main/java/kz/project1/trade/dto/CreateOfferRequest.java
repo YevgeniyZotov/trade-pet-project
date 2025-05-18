@@ -8,4 +8,5 @@ public class CreateOfferRequest {
     private String description;
     private Double price;
     private Long userId;
+    private CreateItemRequest item;
 }

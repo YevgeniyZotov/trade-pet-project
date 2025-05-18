@@ -1,6 +1,5 @@
 package kz.project1.trade.controller;
 
-import kz.project1.trade.dto.CreateUserRequest;
 import kz.project1.trade.dto.UserDto;
 import kz.project1.trade.service.UserService;
 import org.springframework.web.bind.annotation.*;

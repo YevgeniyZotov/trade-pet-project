@@ -2,29 +2,47 @@ package kz.project1.trade.mapper;
 
 import kz.project1.trade.dto.CreateOfferRequest;
 import kz.project1.trade.dto.OfferDto;
+import kz.project1.trade.model.Item;
 import kz.project1.trade.model.Offer;
 import kz.project1.trade.model.User;
 import kz.project1.trade.model.enums.OfferStatus;
 
 public class OfferMapper {
     public static OfferDto toDto(Offer offer) {
-        OfferDto dto = new OfferDto();
-        dto.setId(offer.getId());
-        dto.setTitle(offer.getTitle());
-        dto.setDescription(offer.getDescription());
-        dto.setPrice(offer.getPrice());
-        dto.setStatus(offer.getStatus());
-        dto.setOwner(UserMapper.toDto(offer.getUser()));
-        return dto;
+        if (offer == null) return null;
+
+        OfferDto.OfferDtoBuilder builder = OfferDto.builder()
+                .id(offer.getId())
+                .title(offer.getTitle())
+                .description(offer.getDescription())
+                .price(offer.getPrice())
+                .status(offer.getStatus())
+                .createdAt(offer.getCreatedAt())
+                .owner(UserMapper.toDto(offer.getUser()));
+
+        if (offer.getItem() != null) {
+            builder.item(ItemMapper.toDto(offer.getItem()));
+        }
+        return builder.build();
     }
 
     public static Offer fromCreateRequest(CreateOfferRequest request, User user) {
-        Offer offer = new Offer();
-        offer.setTitle(request.getTitle());
-        offer.setDescription(request.getDescription());
-        offer.setPrice(request.getPrice());
-        offer.setUser(user);
-        offer.setStatus(OfferStatus.ACTIVE);
+        Item item = Item.builder()
+                .name(request.getItem().getName())
+                .type(request.getItem().getType())
+                .exterior(request.getItem().getExterior())
+                .floatValue(request.getItem().getFloatValue())
+                .imageUrl(request.getItem().getImageUrl())
+                .build();
+
+        Offer offer = Offer.builder()
+                .title(request.getTitle())
+                .description(request.getDescription())
+                .price(request.getPrice())
+                .status(OfferStatus.ACTIVE)
+                .user(user)
+                .build();
+
         return offer;
     }
 }

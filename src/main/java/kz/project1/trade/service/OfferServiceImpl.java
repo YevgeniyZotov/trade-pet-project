@@ -2,10 +2,12 @@ package kz.project1.trade.service;
 
 import kz.project1.trade.dto.CreateOfferRequest;
 import kz.project1.trade.dto.OfferDto;
+import kz.project1.trade.exception.ItemTypeNotFoundException;
 import kz.project1.trade.exception.OfferNotFoundException;
 import kz.project1.trade.mapper.OfferMapper;
 import kz.project1.trade.model.Offer;
 import kz.project1.trade.model.User;
+import kz.project1.trade.model.enums.ItemType;
 import kz.project1.trade.model.enums.OfferStatus;
 import kz.project1.trade.repository.OfferRepository;
 import kz.project1.trade.repository.UserRepository;
@@ -63,6 +65,26 @@ public class OfferServiceImpl implements OfferService {
     public List<OfferDto> getOffersByUserId(Long userId) {
         return offerRepository.findAllByUserId(userId).stream()
                 .map(OfferMapper :: toDto)
+                .toList();
+    }
+
+    @Override
+    public List<OfferDto> getOffersByItemType(String type) {
+        List<Offer> offers;
+
+        if (type == null || type.isBlank()) {
+            offers = offerRepository.findAllByStatus(OfferStatus.ACTIVE);
+        } else {
+            try {
+                ItemType itemType = ItemType.valueOf(type.toUpperCase());
+                offers = offerRepository.findAllByItemTypeAndStatus(itemType, OfferStatus.ACTIVE);
+            } catch (ItemTypeNotFoundException e) {
+                throw new ItemTypeNotFoundException("Неверный тип предмета: " + type);
+            }
+        }
+
+        return offers.stream()
+                .map(OfferMapper::toDto)
                 .toList();
     }
 }
