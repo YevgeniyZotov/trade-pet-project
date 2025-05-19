@@ -21,9 +21,6 @@ public class Offer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String title;
-    private String description;
     private Double price;
 
     @Enumerated(EnumType.STRING)

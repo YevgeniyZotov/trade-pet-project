@@ -13,8 +13,6 @@ public class OfferMapper {
 
         OfferDto.OfferDtoBuilder builder = OfferDto.builder()
                 .id(offer.getId())
-                .title(offer.getTitle())
-                .description(offer.getDescription())
                 .price(offer.getPrice())
                 .status(offer.getStatus())
                 .createdAt(offer.getCreatedAt())
@@ -36,11 +34,10 @@ public class OfferMapper {
                 .build();
 
         Offer offer = Offer.builder()
-                .title(request.getTitle())
-                .description(request.getDescription())
                 .price(request.getPrice())
                 .status(OfferStatus.ACTIVE)
                 .user(user)
+                .item(item)
                 .build();
 
         return offer;
