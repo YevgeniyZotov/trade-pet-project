@@ -32,7 +32,7 @@ public class OfferMapper {
                 .type(request.getItem().getType())
                 .exterior(request.getItem().getExterior())
                 .floatValue(request.getItem().getFloatValue())
-                .imageUrl(request.getItem().getImageUrl())
+//                .imageUrl(request.getItem().getImageUrl())
                 .build();
 
         Offer offer = Offer.builder()
@@ -41,6 +41,7 @@ public class OfferMapper {
                 .price(request.getPrice())
                 .status(OfferStatus.ACTIVE)
                 .user(user)
+                .item(item)
                 .build();
 
         return offer;

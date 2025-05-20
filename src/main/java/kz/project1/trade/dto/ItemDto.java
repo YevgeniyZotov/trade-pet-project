@@ -15,5 +15,5 @@ public class ItemDto {
     private ItemType type;
     private String exterior;
     private Double floatValue;
-    private String imageUrl;
+//    private String imageUrl;
 }

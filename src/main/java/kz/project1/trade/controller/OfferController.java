@@ -21,8 +21,13 @@ public class OfferController {
     }
 
     @GetMapping
-    public List<OfferDto> getAllOffers(@Parameter(description = "Тип предмета: KNIFE, RIFLE, PISTOL и т.д.") @RequestParam(required = false) String type) {
-        return offerService.getOffersByItemType(type);
+    public List<OfferDto> getOffers(@Parameter(description = "Тип предмета: KNIFE, RIFLE, PISTOL и т.д.")
+                                    @RequestParam(required = false) String type,
+                                    @Parameter(description = "Минимальное значение по фильтру Float")
+                                    @RequestParam(required = false) Double floatMin,
+                                    @Parameter(description = "Максимальное значение по фильтру Float")
+                                    @RequestParam(required = false) Double floatMax) {
+        return offerService.getOffers(type, floatMin, floatMax);
     }
 
     @PostMapping("/{id}/archive")
