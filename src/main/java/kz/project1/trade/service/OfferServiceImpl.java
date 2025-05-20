@@ -11,6 +11,7 @@ import kz.project1.trade.model.enums.ItemType;
 import kz.project1.trade.model.enums.OfferStatus;
 import kz.project1.trade.repository.OfferRepository;
 import kz.project1.trade.repository.UserRepository;
+import kz.project1.trade.service.filter.OfferFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,7 @@ import java.util.List;
 public class OfferServiceImpl implements OfferService {
     private final OfferRepository offerRepository;
     private final UserRepository userRepository;
+    private final OfferFilter offerFilter;
 
     @Override
     public List<OfferDto> getAllOffers() {
@@ -64,24 +66,16 @@ public class OfferServiceImpl implements OfferService {
     @Override
     public List<OfferDto> getOffersByUserId(Long userId) {
         return offerRepository.findAllByUserId(userId).stream()
-                .map(OfferMapper :: toDto)
+                .map(OfferMapper::toDto)
                 .toList();
     }
 
     @Override
-    public List<OfferDto> getOffersByItemType(String type) {
-        List<Offer> offers;
+    public List<OfferDto> getOffers(String type, Double floatMin, Double floatMax) {
+        List<Offer> offers = offerRepository.findAllByStatus(OfferStatus.ACTIVE);
 
-        if (type == null || type.isBlank()) {
-            offers = offerRepository.findAllByStatus(OfferStatus.ACTIVE);
-        } else {
-            try {
-                ItemType itemType = ItemType.valueOf(type.toUpperCase());
-                offers = offerRepository.findAllByItemTypeAndStatus(itemType, OfferStatus.ACTIVE);
-            } catch (ItemTypeNotFoundException e) {
-                throw new ItemTypeNotFoundException("Неверный тип предмета: " + type);
-            }
-        }
+        offers = offerFilter.filterByType(offers, type);
+        offers = offerFilter.filterByFloat(offers, floatMin, floatMax);
 
         return offers.stream()
                 .map(OfferMapper::toDto)
