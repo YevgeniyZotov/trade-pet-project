@@ -2,6 +2,7 @@ package kz.project1.trade.service;
 
 import kz.project1.trade.dto.CreateOfferRequest;
 import kz.project1.trade.dto.OfferDto;
+import kz.project1.trade.dto.OfferFilterRequest;
 import kz.project1.trade.model.enums.ItemType;
 
 import java.util.List;
@@ -13,5 +14,5 @@ public interface OfferService {
     OfferDto archiveOffer(Long id);
     List<OfferDto> getActiveOffers();
     List<OfferDto> getOffersByUserId(Long userId);
-    List<OfferDto> getOffers(String type, Double floatMin, Double floatMax, Double priceMin, Double priceMax);
+    List<OfferDto> getOffers(OfferFilterRequest request);
 }

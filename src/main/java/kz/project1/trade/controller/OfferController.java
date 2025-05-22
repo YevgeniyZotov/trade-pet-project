@@ -3,6 +3,7 @@ package kz.project1.trade.controller;
 import io.swagger.v3.oas.annotations.Parameter;
 import kz.project1.trade.dto.CreateOfferRequest;
 import kz.project1.trade.dto.OfferDto;
+import kz.project1.trade.dto.OfferFilterRequest;
 import kz.project1.trade.service.OfferService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +32,19 @@ public class OfferController {
                                     @RequestParam(required = false) Double priceMin,
                                     @Parameter(description = "Максимальное значение по фильтру Price")
                                     @RequestParam(required = false) Double priceMax) {
-        return offerService.getOffers(type, floatMin, floatMax, priceMin, priceMax);
+        OfferFilterRequest request = OfferFilterRequest.builder()
+                .type(type)
+                .floatMin(floatMin)
+                .floatMax(floatMax)
+                .priceMin(priceMin)
+                .priceMax(priceMax)
+                .build();
+        return offerService.getOffers(request);
+    }
+
+    @PostMapping("/filter")
+    public List<OfferDto> filterOffers(@RequestBody OfferFilterRequest filterRequest) {
+        return offerService.getOffers(filterRequest);
     }
 
     @PostMapping("/{id}/archive")
