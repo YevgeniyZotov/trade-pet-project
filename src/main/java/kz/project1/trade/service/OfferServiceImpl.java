@@ -2,6 +2,7 @@ package kz.project1.trade.service;
 
 import kz.project1.trade.dto.CreateOfferRequest;
 import kz.project1.trade.dto.OfferDto;
+import kz.project1.trade.dto.OfferFilterRequest;
 import kz.project1.trade.exception.ItemTypeNotFoundException;
 import kz.project1.trade.exception.OfferNotFoundException;
 import kz.project1.trade.mapper.ItemMapper;
@@ -87,12 +88,12 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public List<OfferDto> getOffers(String type, Double floatMin, Double floatMax, Double priceMin, Double priceMax) {
+    public List<OfferDto> getOffers(OfferFilterRequest request) {
         List<Offer> offers = offerRepository.findAllByStatus(OfferStatus.ACTIVE);
 
-        offers = offerFilter.filterByType(offers, type);
-        offers = offerFilter.filterByFloat(offers, floatMin, floatMax);
-        offers = offerFilter.filterByPrice(offers, priceMin, priceMax);
+        offers = offerFilter.filterByType(offers, request.getType());
+        offers = offerFilter.filterByFloat(offers, request.getFloatMin(), request.getFloatMax());
+        offers = offerFilter.filterByPrice(offers, request.getPriceMin(), request.getPriceMax());
 
         return offers.stream()
                 .map(OfferMapper::toDto)
