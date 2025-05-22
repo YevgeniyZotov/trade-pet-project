@@ -4,11 +4,13 @@ import kz.project1.trade.dto.CreateOfferRequest;
 import kz.project1.trade.dto.OfferDto;
 import kz.project1.trade.exception.ItemTypeNotFoundException;
 import kz.project1.trade.exception.OfferNotFoundException;
+import kz.project1.trade.mapper.ItemMapper;
 import kz.project1.trade.mapper.OfferMapper;
+import kz.project1.trade.model.Item;
 import kz.project1.trade.model.Offer;
 import kz.project1.trade.model.User;
-import kz.project1.trade.model.enums.ItemType;
 import kz.project1.trade.model.enums.OfferStatus;
+import kz.project1.trade.repository.ItemRepository;
 import kz.project1.trade.repository.OfferRepository;
 import kz.project1.trade.repository.UserRepository;
 import kz.project1.trade.service.filter.OfferFilter;
@@ -22,6 +24,7 @@ import java.util.List;
 public class OfferServiceImpl implements OfferService {
     private final OfferRepository offerRepository;
     private final UserRepository userRepository;
+    private final ItemRepository itemRepository;
     private final OfferFilter offerFilter;
 
     @Override
@@ -43,7 +46,20 @@ public class OfferServiceImpl implements OfferService {
         User owner = userRepository.findById(request.getUserId())
                 .orElseThrow(() -> new OfferNotFoundException("Пользователь с таким ID: " + request.getUserId() + " не найден"));
 
-        Offer offer = OfferMapper.fromCreateRequest(request, owner);
+        ///  Создание предмета по ID или объекту
+/*        Item item;
+        if (request.getItemId() != null) {
+            item = itemRepository.findById(request.getItemId())
+                    .orElseThrow(() -> new ItemTypeNotFoundException("Предмет с таким ID: " + request.getItemId() + " не найден"));
+        } else if (request.getItem() != null) {
+            item = itemRepository.save(ItemMapper.fromDto(request.getItem()));
+        } else {
+            throw new ItemTypeNotFoundException("Нужно указать либо itemId, либо item объект");
+        }*/
+
+        Item item = itemRepository.findById(request.getItemId())
+                .orElseThrow(() -> new ItemTypeNotFoundException("Предмет с таким ID: " + request.getItemId() + " не найден"));
+        Offer offer = OfferMapper.fromCreateRequest(request, owner, item);
         return OfferMapper.toDto(offerRepository.save(offer));
     }
 
