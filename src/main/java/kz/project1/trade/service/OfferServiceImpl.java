@@ -87,11 +87,12 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public List<OfferDto> getOffers(String type, Double floatMin, Double floatMax) {
+    public List<OfferDto> getOffers(String type, Double floatMin, Double floatMax, Double priceMin, Double priceMax) {
         List<Offer> offers = offerRepository.findAllByStatus(OfferStatus.ACTIVE);
 
         offers = offerFilter.filterByType(offers, type);
         offers = offerFilter.filterByFloat(offers, floatMin, floatMax);
+        offers = offerFilter.filterByPrice(offers, priceMin, priceMax);
 
         return offers.stream()
                 .map(OfferMapper::toDto)

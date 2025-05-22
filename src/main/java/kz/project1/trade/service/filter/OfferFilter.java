@@ -38,4 +38,17 @@ public class OfferFilter {
                 })
                 .toList();
     }
+
+    public List<Offer> filterByPrice(List<Offer> offers, Double priceMin, Double priceMax) {
+        return offers.stream()
+                .filter(offer -> {
+                    Item item = offer.getItem();
+                    if (item == null) return false;
+
+                    Double price = offer.getPrice();
+                    return (priceMin == null || price >= priceMin) &&
+                            (priceMax == null || price <= priceMax);
+                })
+                .toList();
+    }
 }

@@ -26,8 +26,12 @@ public class OfferController {
                                     @Parameter(description = "Минимальное значение по фильтру Float")
                                     @RequestParam(required = false) Double floatMin,
                                     @Parameter(description = "Максимальное значение по фильтру Float")
-                                    @RequestParam(required = false) Double floatMax) {
-        return offerService.getOffers(type, floatMin, floatMax);
+                                    @RequestParam(required = false) Double floatMax,
+                                    @Parameter(description = "Минимальное значение по фильтру Price")
+                                    @RequestParam(required = false) Double priceMin,
+                                    @Parameter(description = "Максимальное значение по фильтру Price")
+                                    @RequestParam(required = false) Double priceMax) {
+        return offerService.getOffers(type, floatMin, floatMax, priceMin, priceMax);
     }
 
     @PostMapping("/{id}/archive")
