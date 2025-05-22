@@ -7,6 +7,7 @@ import kz.project1.trade.model.Item;
 public class ItemMapper {
     public static ItemDto toDto(Item item) {
         return ItemDto.builder()
+                .id(item.getId())
                 .name(item.getName())
                 .type(item.getType())
                 .exterior(item.getExterior())
@@ -21,6 +22,16 @@ public class ItemMapper {
                 .type(request.getType())
                 .exterior(request.getExterior())
                 .floatValue(request.getFloatValue())
+                .build();
+    }
+
+    public static Item fromDto(ItemDto itemDto) {
+        return Item.builder()
+                .id(itemDto.getId())
+                .name(itemDto.getName())
+                .type(itemDto.getType())
+                .exterior(itemDto.getExterior())
+                .floatValue(itemDto.getFloatValue())
                 .build();
     }
 }

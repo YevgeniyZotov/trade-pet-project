@@ -14,14 +14,16 @@ public class OfferFilter {
     public List<Offer> filterByType(List<Offer> offers, String type) {
         if (type == null || type.isBlank()) return offers;
 
+        ItemType itemType;
         try {
-            ItemType itemType = ItemType.valueOf(type.toUpperCase());
-            return offers.stream()
-                    .filter(offer -> offer.getItem().getType().equals(itemType))
-                    .toList();
+            itemType = ItemType.valueOf(type.toUpperCase());
         } catch (IllegalArgumentException e) {
             throw new ItemTypeNotFoundException("Неверный тип предмета: " + type);
         }
+
+        return offers.stream()
+                .filter(offer -> offer.getItem() != null && itemType.equals(offer.getItem().getType()))
+                .toList();
     }
 
     public List<Offer> filterByFloat(List<Offer> offers, Double floatMin, Double floatMax) {
