@@ -13,5 +13,5 @@ public interface OfferService {
     OfferDto archiveOffer(Long id);
     List<OfferDto> getActiveOffers();
     List<OfferDto> getOffersByUserId(Long userId);
-    List<OfferDto> getOffers(String type, Double floatMin, Double floatMax);
+    List<OfferDto> getOffers(String type, Double floatMin, Double floatMax, Double priceMin, Double priceMax);
 }
