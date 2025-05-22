@@ -6,5 +6,5 @@ import lombok.Data;
 public class CreateOfferRequest {
     private Double price;
     private Long userId;
-    private CreateItemRequest item;
+    private Long itemId;
 }

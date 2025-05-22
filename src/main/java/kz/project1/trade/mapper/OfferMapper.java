@@ -24,15 +24,7 @@ public class OfferMapper {
         return builder.build();
     }
 
-    public static Offer fromCreateRequest(CreateOfferRequest request, User user) {
-        Item item = Item.builder()
-                .name(request.getItem().getName())
-                .type(request.getItem().getType())
-                .exterior(request.getItem().getExterior())
-                .floatValue(request.getItem().getFloatValue())
-                .imageUrl(request.getItem().getImageUrl())
-                .build();
-
+    public static Offer fromCreateRequest(CreateOfferRequest request, User user, Item item) {
         Offer offer = Offer.builder()
                 .price(request.getPrice())
                 .status(OfferStatus.ACTIVE)
